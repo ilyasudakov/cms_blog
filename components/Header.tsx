@@ -10,12 +10,12 @@ interface IProps {
 const Header: React.FC<IProps> = ({ pageTitle }) => {
   const { data: session } = useSession()
   return (
-    <div>
+    <div className="mb-6">
       <Head>
         <title>{pageTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container flex items-center justify-between border-b py-2">
+      <div className="container flex items-center justify-between border-b border-gray-500 py-4">
         <div className="cursor-pointer">
           <Link href="/">
             <svg fill="none" viewBox="0 0 75 75" height="40px" width="40px">
@@ -42,12 +42,14 @@ const Header: React.FC<IProps> = ({ pageTitle }) => {
                 ) : null}
               </div>
               <Link href="/auth/sign-out">
-                <span className="cursor-pointer text-lg">Sign Out</span>
+                <span className="cursor-pointer text-lg underline">
+                  Sign Out
+                </span>
               </Link>
             </>
           ) : (
             <Link href="/auth/sign-in">
-              <span className="cursor-pointer text-lg">Sign In</span>
+              <span className="cursor-pointer text-lg underline">Sign In</span>
             </Link>
           )}
         </div>

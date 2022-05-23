@@ -1,5 +1,6 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { getSession, signIn } from 'next-auth/react'
+import Link from 'next/link'
 
 const SignIn: NextPage = () => {
   return (
@@ -28,6 +29,9 @@ const SignIn: NextPage = () => {
           </svg>
           <span>Войти c GitHub</span>
         </button>
+        <Link href="/">
+          <span className="cursor-pointer py-4 underline">На главную</span>
+        </Link>
       </div>
     </div>
   )
