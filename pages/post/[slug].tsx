@@ -2,9 +2,8 @@ import moment from 'moment'
 import { GetStaticPaths } from 'next'
 import Link from 'next/link'
 import { ParsedUrlQuery } from 'querystring'
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { getPostDetails } from '../../services'
-import HTMLReactParser from 'html-react-parser'
 
 interface IProps {
   post: {
@@ -57,7 +56,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
     switch (type) {
       case 'heading-three':
         return (
-          <h3 key={index} className="mb-4 text-xl font-semibold">
+          <h3 key={index} className="mb-4 text-xl font-semibold text-gray-100">
             {modifiedText.map((item: any, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -73,7 +72,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
         )
       case 'heading-four':
         return (
-          <h4 key={index} className="text-md mb-4 font-semibold">
+          <h4 key={index} className="text-md mb-4 font-semibold text-gray-100">
             {modifiedText.map((item: any, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -106,7 +105,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
         </Link>
         <span>{moment(createdAt).fromNow()}</span>
       </div>
-      <div className="mb-8 text-2xl">{title}</div>
+      <div className="mb-8 text-2xl text-gray-100">{title}</div>
       {post.image?.url ? (
         <div className="mb-4">
           <img className="max-w-4/12" src={post.image?.url} />
@@ -134,6 +133,9 @@ const PostPage: React.FC<IProps> = ({ post }) => {
           return getContentFragment(index, children, typeObj, typeObj.type)
         }
       )}
+      <Link href="/">
+        <span className="cursor-pointer py-4 underline">На главную</span>
+      </Link>
     </div>
   )
 }

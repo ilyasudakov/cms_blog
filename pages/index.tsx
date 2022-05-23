@@ -24,7 +24,9 @@ const Home: NextPage<IProps> = ({ posts, categories }) => {
     <div className="">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 ">
         <section id="posts" className="col-span-10">
-          <div className="mb-2 text-2xl font-bold">Последние посты</div>
+          <div className="mb-4 text-2xl font-bold dark:text-gray-100">
+            Последние посты
+          </div>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {posts.map((post) => (
               <PostWidget post={post.node} />

@@ -87,3 +87,55 @@ export const getPostDetails = async (slug: any) => {
   )
   return results.postsConnection.edges
 }
+
+export const getPostsByCategory = async (slug: any) => {
+  const query = gql`
+    query MyQuery($slug: String!) {
+      postsConnection(where: { categories_some: { slug: $slug } }) {
+        edges {
+          node {
+            id
+            createdAt
+            excerpt
+            title
+            author {
+              name
+              userImage {
+                url
+              }
+              email
+            }
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const results = await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    query,
+    { slug }
+  )
+  return results.postsConnection.edges
+}
+
+export const getCategoryBySlug = async (slug: any) => {
+  const query = gql`
+    query MyQuery($slug: String!) {
+      categories(where: { slug: $slug }) {
+        name
+        slug
+      }
+    }
+  `
+
+  const results = await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    query,
+    { slug }
+  )
+  return results.categories[0]
+}

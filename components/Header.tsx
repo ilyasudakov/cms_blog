@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const mode = useTheme()
   return (
     <div className="mb-6">
-      <div className="container flex items-center justify-between border-b border-gray-500 py-4">
+      <div className="container flex items-center justify-between border-b border-gray-100 py-4">
         <div className="cursor-pointer">
           <Link href="/">
             <div className="flex items-center">
