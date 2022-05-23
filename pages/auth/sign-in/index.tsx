@@ -6,11 +6,9 @@ const SignIn: NextPage = () => {
   return (
     <div className="container mx-auto h-screen p-2 text-center">
       <div className="mt-60 grid grid-cols-1 place-items-center">
-        <div className="mb-2">
-          Вы не авторизованы, войдите используя сторонний сервис
-        </div>
+        <div className="mb-2">Вы не авторизованы</div>
         <button
-          className="flex w-fit items-center rounded-full border border-gray-700 py-1 px-4 text-sm"
+          className="flex w-fit items-center justify-start rounded-full border border-gray-600 py-1 px-4 text-sm transition hover:border-gray-900"
           onClick={() => signIn('github')}
         >
           <svg

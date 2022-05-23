@@ -1,31 +1,19 @@
-import { getSession, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 
-interface IProps {
-  pageTitle: string
-}
-
-const Header: React.FC<IProps> = ({ pageTitle }) => {
+const Header: React.FC = () => {
   const { data: session } = useSession()
   return (
     <div className="mb-6">
-      <Head>
-        <title>{pageTitle}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className="container flex items-center justify-between border-b border-gray-500 py-4">
         <div className="cursor-pointer">
           <Link href="/">
-            <svg fill="none" viewBox="0 0 75 75" height="40px" width="40px">
-              <path
-                fill="currentColor"
-                fill-rule="evenodd"
-                d="M50.92 10l-8.73 5-8.73 5-8.73 5v30l8.73-5 8.73-5V35l-8.73 5V30l8.73-5 8.73-5v30l-8.73 5-8.73 5-8.73 5L16 70l8.73 5 8.73-5 8.73-5 8.73-5 8.73-5V5l-8.73-5v10z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <div className="flex items-center">
+              <img src="/120x100.png" height="40px" width="40px" alt="" />
+              <span className="ml-2 hidden text-2xl sm:block">.webhub</span>
+            </div>
           </Link>
         </div>
         <div className="flex items-center">
@@ -42,14 +30,12 @@ const Header: React.FC<IProps> = ({ pageTitle }) => {
                 ) : null}
               </div>
               <Link href="/auth/sign-out">
-                <span className="cursor-pointer text-lg underline">
-                  Sign Out
-                </span>
+                <span className="cursor-pointer text-lg underline">Выйти</span>
               </Link>
             </>
           ) : (
             <Link href="/auth/sign-in">
-              <span className="cursor-pointer text-lg underline">Sign In</span>
+              <span className="cursor-pointer text-lg underline">Войти</span>
             </Link>
           )}
         </div>

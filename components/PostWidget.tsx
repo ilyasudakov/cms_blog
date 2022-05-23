@@ -1,29 +1,53 @@
+import moment from 'moment'
 import Link from 'next/link'
 import React from 'react'
 
 interface IProps {
-  post: { title: string; excerpt: string; image: { url: string } }
+  post: {
+    title: string
+    excerpt: string
+    image: { url: string }
+    author: { userImage: { url: string }; name: string; email: string }
+    createdAt: Date
+    slug: string
+  }
 }
 
 const PostWidget: React.FC<IProps> = ({ post }) => {
-  const { title, excerpt } = post
+  const { title, excerpt, slug, createdAt } = post
 
   return (
     <div
       key={title}
-      className="cursor-pointer rounded-lg border border-gray-700 p-4 transition hover:bg-gray-100"
+      className="cursor-pointer border border-gray-600 p-4 hover:border-gray-900"
     >
-      <div className="flex">
-        <div className="mr-4">
-          <div className="text-xl font-bold">{title}</div>
-          <div className="line-clamp-3">{excerpt}</div>
+      <Link href={`/post/${slug}`}>
+        <div>
+          <div className="text-lg font-bold">{title}</div>
+          <div className="flex flex-col items-center sm:flex-row">
+            <div className="order-2 mr-4 sm:order-1">
+              <div className="line-clamp-3">{excerpt}</div>
+            </div>
+            {post.image?.url ? (
+              <div className="order-1 min-w-full sm:order-2 sm:min-w-min">
+                <img src={post.image?.url} />
+              </div>
+            ) : null}
+          </div>
+          <div className="mt-4 flex items-center text-sm">
+            <Link href={`/user/${post.author.email}`}>
+              <div className="flex items-center hover:underline">
+                <img
+                  width="25"
+                  className="mr-2"
+                  src={post.author.userImage?.url}
+                />
+                <span className="mr-2">{post.author.name}</span>
+              </div>
+            </Link>
+            <span>{moment(createdAt).fromNow()}</span>
+          </div>
         </div>
-        <div className="min-w-fit">
-          <img width="100%" src={post?.image?.url} />
-        </div>
-      </div>
-      <Link href="/">
-        <span className="cursor-pointer py-4 underline">Читать дальше</span>
       </Link>
     </div>
   )

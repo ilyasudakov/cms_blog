@@ -10,13 +10,13 @@ export const getPosts = async () => {
             createdAt
             excerpt
             title
-            content {
-              text
-            }
+            slug
             author {
               userImage {
                 url
               }
+              name
+              email
             }
             image {
               url
@@ -30,6 +30,60 @@ export const getPosts = async () => {
   const results = await request(
     `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
     query
+  )
+  return results.postsConnection.edges
+}
+
+export const getCategories = async () => {
+  const query = gql`
+    query MyQuery {
+      categories {
+        name
+        slug
+      }
+    }
+  `
+
+  const results = await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    query
+  )
+  return results.categories
+}
+
+export const getPostDetails = async (slug: any) => {
+  const query = gql`
+    query MyQuery($slug: String!) {
+      postsConnection(where: { slug: $slug }) {
+        edges {
+          node {
+            id
+            createdAt
+            excerpt
+            title
+            content {
+              raw
+            }
+            author {
+              name
+              userImage {
+                url
+              }
+              email
+            }
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const results = await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    query,
+    { slug }
   )
   return results.postsConnection.edges
 }
