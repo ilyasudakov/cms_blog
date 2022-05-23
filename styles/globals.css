@@ -5,3 +5,9 @@
 * {
   font-family: 'Source Code Pro', monospace;
 }
+
+@media (prefers-color-scheme: dark) {
+  * {
+    color: #ccc;
+  }
+}

@@ -14,9 +14,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Head>
         <link rel="icon" href="/40x40.png" />
       </Head>
-      <div className="container mx-auto px-4 sm:px-10">
-        <Header />
-        <Component {...pageProps} />
+      <div className="min-h-screen dark:bg-black">
+        <div className="container mx-auto px-4 sm:px-10">
+          <Header />
+          <Component {...pageProps} />
+        </div>
       </div>
     </SessionProvider>
   )

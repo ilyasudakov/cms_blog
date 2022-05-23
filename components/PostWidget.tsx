@@ -19,11 +19,11 @@ const PostWidget: React.FC<IProps> = ({ post }) => {
   return (
     <div
       key={title}
-      className="cursor-pointer border border-gray-600 p-4 hover:border-gray-900"
+      className="cursor-pointer border border-gray-900 p-4 dark:border-gray-300"
     >
       <Link href={`/post/${slug}`}>
         <div>
-          <div className="text-lg font-bold">{title}</div>
+          <div className="text-lg font-bold dark:text-gray-100">{title}</div>
           <div className="flex flex-col items-center sm:flex-row">
             <div className="order-2 mr-4 sm:order-1">
               <div className="line-clamp-3">{excerpt}</div>
