@@ -10,7 +10,7 @@ interface IProps {
     title: string
     excerpt: string
     image: { url: string }
-    author: { userImage: { url: string }; name: string; email: string }
+    author: { img: string; name: string; email: string }
     createdAt: Date
     id: string
     slug: string

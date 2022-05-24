@@ -10,7 +10,7 @@ interface IProps {
       title: string
       excerpt: string
       image: { url: string }
-      author: { userImage: { url: string }; name: string; email: string }
+      author: { img: string; name: string; email: string }
       createdAt: Date
       id: string
       slug: string
@@ -29,15 +29,9 @@ const CategoryPage: React.FC<IProps> = ({ posts, category }) => {
         {category.name}
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {posts
-          .sort((a, b) => {
-            if (a.node.createdAt < b.node.createdAt) return 1
-            if (a.node.createdAt >= b.node.createdAt) return -1
-            return 0
-          })
-          .map((post) => (
-            <PostWidget post={post.node} />
-          ))}
+        {posts.map((post) => (
+          <PostWidget post={post.node} />
+        ))}
       </div>
     </div>
   )

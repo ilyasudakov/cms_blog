@@ -8,7 +8,10 @@ const Header: React.FC = () => {
   const mode = useTheme()
   return (
     <div className="sm:h20 sticky top-0 mb-6 h-16 bg-white dark:bg-black">
-      <div className="container flex items-center justify-between border-b border-gray-900 py-2 dark:border-gray-100 sm:py-4">
+      <div
+        className="container flex items-center justify-between border-b border-gray-900 bg-white py-2 
+      dark:border-gray-100 dark:bg-black sm:py-4"
+      >
         <div className="cursor-pointer">
           <Link href="/">
             <div className="flex items-center">
@@ -20,7 +23,9 @@ const Header: React.FC = () => {
                 width="40px"
                 alt=""
               />
-              <span className="ml-2 hidden text-2xl sm:block">.webhub</span>
+              <span className="ml-2 hidden text-2xl dark:text-white sm:block">
+                .webhub
+              </span>
             </div>
           </Link>
         </div>

@@ -11,7 +11,7 @@ interface IProps {
       title: string
       excerpt: string
       image: { url: string }
-      author: { userImage: { url: string }; name: string; email: string }
+      author: { img: string; name: string; email: string }
       createdAt: Date
       id: string
       slug: string
@@ -33,7 +33,7 @@ const Home: NextPage<IProps> = ({ posts, categories }) => {
           ))}
         </div>
       </section>
-      <div className="sticky top-28 col-span-10 bg-white dark:bg-black sm:col-span-12 xl:col-span-2">
+      <div className="sticky top-28 col-span-10 grid gap-2 bg-white dark:bg-black sm:col-span-12 xl:col-span-2">
         <CreateButton text={'Написать блог'} href={'/create'} />
         <CategoriesWidget categories={categories} />
         <LatestPostsWidget posts={posts} />

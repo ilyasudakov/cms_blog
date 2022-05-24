@@ -7,7 +7,7 @@ interface IProps {
       title: string
       excerpt: string
       image: { url: string }
-      author: { userImage: { url: string }; name: string; email: string }
+      author: { img: string; name: string; email: string }
       createdAt: Date
       id: string
       slug: string
@@ -21,20 +21,13 @@ const LatestPostsWidget: React.FC<IProps> = ({ posts }) => {
       <div className="text-lg font-bold dark:text-gray-100">
         Новые публикации
       </div>
-      {posts
-        .sort((a, b) => {
-          if (a.node.createdAt < b.node.createdAt) return 1
-          if (a.node.createdAt >= b.node.createdAt) return -1
-          return 0
-        })
-        .slice(0, 2)
-        .map((post) => (
-          <Link key={post.node.id} href={`/category/${post.node.slug}`}>
-            <span className="mb-2 cursor-pointer text-sm hover:underline">
-              {post.node.title}
-            </span>
-          </Link>
-        ))}
+      {posts.slice(0, 2).map((post) => (
+        <Link key={post.node.id} href={`/post/${post.node.slug}`}>
+          <span className="mb-2 cursor-pointer text-sm hover:underline">
+            {post.node.title}
+          </span>
+        </Link>
+      ))}
     </div>
   )
 }

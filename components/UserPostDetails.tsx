@@ -7,9 +7,7 @@ interface IProps {
   author: {
     email: string
     name: string
-    userImage: {
-      url?: string
-    }
+    img: string
   }
 }
 
@@ -18,7 +16,7 @@ const UserPostDetails: React.FC<IProps> = ({ createdAt, author }) => {
     <div className="flex items-center text-sm">
       <Link href={`/user/post/${author.email}`}>
         <div className="flex cursor-pointer items-center hover:underline">
-          <img width="25" className="mr-2" src={author.userImage?.url} />
+          <img width="25" className="mr-2 rounded-full" src={author?.img} />
           <span className="mr-2">{author.name}</span>
         </div>
       </Link>
