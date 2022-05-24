@@ -108,6 +108,7 @@ export const getPostsByCategory = async (slug: any) => {
             image {
               url
             }
+            slug
           }
         }
       }

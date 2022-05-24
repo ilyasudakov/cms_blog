@@ -98,14 +98,14 @@ const PostPage: React.FC<IProps> = ({ post }) => {
     <div className="grid pb-20">
       <div className="mb-2 flex items-center text-sm">
         <Link href={`/user/${post.author.email}`}>
-          <div className="flex items-center hover:underline">
+          <div className="flex cursor-pointer items-center hover:underline">
             <img width="25" className="mr-2" src={post.author.userImage?.url} />
             <span className="mr-2">{post.author.name}</span>
           </div>
         </Link>
         <span>{moment(createdAt).fromNow()}</span>
       </div>
-      <div className="mb-8 text-2xl text-gray-100">{title}</div>
+      <div className="mb-8 text-2xl dark:text-gray-100">{title}</div>
       {post.image?.url ? (
         <div className="mb-4">
           <img className="max-w-4/12" src={post.image?.url} />

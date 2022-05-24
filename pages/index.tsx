@@ -33,7 +33,7 @@ const Home: NextPage<IProps> = ({ posts, categories }) => {
             ))}
           </div>
         </section>
-        <div className="col-span-2">
+        <div className="col-span-10 sm:col-span-2">
           <CategoriesWidget categories={categories} />
         </div>
       </div>
