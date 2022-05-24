@@ -23,8 +23,10 @@ const PostWidget: React.FC<IProps> = ({ post }) => {
     >
       <Link href={`/post/${slug}`}>
         <div>
-          <div className="text-lg font-bold dark:text-gray-100">{title}</div>
-          <div className="flex flex-col items-center sm:flex-row">
+          <div className="mb-2 text-lg font-bold dark:text-gray-100">
+            {title}
+          </div>
+          <div className="flex flex-col items-start sm:flex-row">
             <div className="order-2 mr-4 sm:order-1">
               <div className="line-clamp-3">{excerpt}</div>
             </div>

@@ -119,7 +119,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
       <div className="mb-8 text-2xl font-bold dark:text-gray-100">{title}</div>
       {post.image?.url ? (
         <div className="mb-4">
-          <img className="max-w-4/12" src={post.image?.url} />
+          <img className="md:max-w-md lg:max-w-xl" src={post.image?.url} />
         </div>
       ) : null}
       {post.content.raw.children.map(

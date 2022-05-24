@@ -14,8 +14,8 @@ const CategoriesWidget: React.FC<IProps> = ({ categories }) => {
     <div className="t-0 mb-2 block grid gap-2 rounded-md border border-gray-900 p-4 dark:border-gray-300 lg:sticky">
       <div className="text-lg font-bold dark:text-gray-100">Категории</div>
       {categories.map(({ name, slug }) => (
-        <Link href={`/category/${slug}`}>
-          <span className="cursor-pointer underline">{name}</span>
+        <Link key={slug} href={`/category/${slug}`}>
+          <span className="cursor-pointer hover:underline">{name}</span>
         </Link>
       ))}
     </div>

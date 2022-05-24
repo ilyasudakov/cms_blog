@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import CategoriesWidget from '../components/CategoriesWidget'
 import CreateButton from '../components/CreateButton'
+import LatestPostsWidget from '../components/LatestPostsWidget'
 import PostWidget from '../components/PostWidget'
 import { getCategories, getPosts } from '../services'
 
@@ -21,28 +22,21 @@ interface IProps {
 
 const Home: NextPage<IProps> = ({ posts, categories }) => {
   return (
-    <div className="">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 ">
-        <section id="posts" className="col-span-10">
-          <div className="mb-4 text-2xl font-bold dark:text-gray-100">
-            Последние посты
-          </div>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {posts
-              .sort((a, b) => {
-                if (a.node.createdAt < b.node.createdAt) return 1
-                if (a.node.createdAt >= b.node.createdAt) return -1
-                return 0
-              })
-              .map((post) => (
-                <PostWidget post={post.node} />
-              ))}
-          </div>
-        </section>
-        <div className="col-span-10 sm:col-span-2">
-          <CreateButton text={'Написать блог'} href={'/create'} />
-          <CategoriesWidget categories={categories} />
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 ">
+      <section id="posts" className="col-span-10">
+        <div className="mb-4 text-2xl font-bold dark:text-gray-100">
+          Интересные посты
         </div>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {posts.map((post) => (
+            <PostWidget post={post.node} />
+          ))}
+        </div>
+      </section>
+      <div className="col-span-10 sm:col-span-2">
+        <CreateButton text={'Написать блог'} href={'/create'} />
+        <CategoriesWidget categories={categories} />
+        <LatestPostsWidget posts={posts} />
       </div>
     </div>
   )
