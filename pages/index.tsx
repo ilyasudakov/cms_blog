@@ -22,7 +22,7 @@ interface IProps {
 
 const Home: NextPage<IProps> = ({ posts, categories }) => {
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 ">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
       <section id="posts" className="col-span-10">
         <div className="mb-4 text-2xl font-bold dark:text-gray-100">
           Интересные посты
@@ -31,9 +31,21 @@ const Home: NextPage<IProps> = ({ posts, categories }) => {
           {posts.map((post) => (
             <PostWidget post={post.node} />
           ))}
+          {posts.map((post) => (
+            <PostWidget post={post.node} />
+          ))}
+          {posts.map((post) => (
+            <PostWidget post={post.node} />
+          ))}
+          {posts.map((post) => (
+            <PostWidget post={post.node} />
+          ))}
+          {posts.map((post) => (
+            <PostWidget post={post.node} />
+          ))}
         </div>
       </section>
-      <div className="col-span-10 sm:col-span-2">
+      <div className="sticky top-28 col-span-10 bg-white dark:bg-black sm:col-span-2">
         <CreateButton text={'Написать блог'} href={'/create'} />
         <CategoriesWidget categories={categories} />
         <LatestPostsWidget posts={posts} />
