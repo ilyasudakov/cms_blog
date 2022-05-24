@@ -6,7 +6,7 @@ interface IProps {
     node: {
       title: string
       excerpt: string
-      image: { url: string }
+      image: string
       author: { img: string; name: string; email: string }
       createdAt: Date
       id: string

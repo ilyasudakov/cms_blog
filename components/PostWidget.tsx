@@ -6,7 +6,7 @@ interface IProps {
   post: {
     title: string
     excerpt: string
-    image: { url: string }
+    image: string
     author: { img: string; name: string; email: string }
     createdAt: Date
     slug: string
@@ -30,9 +30,9 @@ const PostWidget: React.FC<IProps> = ({ post }) => {
             <div className="order-2 mr-4 sm:order-1">
               <div className="line-clamp-3">{excerpt}</div>
             </div>
-            {post.image?.url ? (
+            {post.image ? (
               <div className="order-1 min-w-full sm:order-2 sm:min-w-min">
-                <img src={post.image?.url} />
+                <img src={post.image} />
               </div>
             ) : null}
           </div>

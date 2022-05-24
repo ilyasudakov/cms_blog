@@ -16,9 +16,7 @@ export const getPosts = async (limit: number = 10) => {
               name
               email
             }
-            image {
-              url
-            }
+            image
           }
         }
       }
@@ -68,9 +66,7 @@ export const getPostDetails = async (slug: string) => {
               img
               email
             }
-            image {
-              url
-            }
+            image
           }
         }
       }
@@ -103,9 +99,7 @@ export const getPostsByCategory = async (slug: string) => {
               img
               email
             }
-            image {
-              url
-            }
+            image
             slug
           }
         }
@@ -139,9 +133,7 @@ export const getPostsByUser = async (slug: string) => {
               img
               email
             }
-            image {
-              url
-            }
+            image
             slug
           }
         }
@@ -218,14 +210,15 @@ export const addUser = async (user: any) => {
 
 export const addBlog = async (blog: any, user: any) => {
   const { email } = user
+  const { title, excerpt, content, slug } = blog
   const query = gql`
-    mutation ($name: String!, $email: String!, $img: String!) {
-      createPost(data: { user: $email, email: $email, img: $img }) {
-        name
-        email
-        img
+    mutation ($title: String!, $excerpt: String!, $slug: String!) {
+      createPost(data: { title: $title, excerpt: $excerpt, slug: $slug }) {
+        title
+        excerpt
+        slug
       }
-      publishAuthor(where: { email: $email }) {
+      publishBlog(where: { slug: $slug }) {
         id
       }
     }
