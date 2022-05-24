@@ -212,13 +212,26 @@ export const addBlog = async (blog: any, user: any) => {
   const { email } = user
   const { title, excerpt, content, slug } = blog
   const query = gql`
-    mutation ($title: String!, $excerpt: String!, $slug: String!) {
-      createPost(data: { title: $title, excerpt: $excerpt, slug: $slug }) {
+    mutation (
+      $title: String!
+      $excerpt: String!
+      $slug: String!
+      $content: RichTextAST!
+    ) {
+      createPost(
+        data: {
+          title: $title
+          excerpt: $excerpt
+          slug: $slug
+          content: $content
+        }
+      ) {
         title
         excerpt
         slug
+        content
       }
-      publishBlog(where: { slug: $slug }) {
+      publishPost(where: { slug: $slug }) {
         id
       }
     }
@@ -227,7 +240,7 @@ export const addBlog = async (blog: any, user: any) => {
   const results = await request(
     `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
     query,
-    { email }
+    { email, title, excerpt, content, slug }
   )
   return results
 }

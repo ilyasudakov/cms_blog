@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
 import { Button } from '../../components'
+import { addBlog } from '../../services'
 
 const CreateBlogPage: React.FC = () => {
   const session = useSession()
@@ -16,6 +17,7 @@ const CreateBlogPage: React.FC = () => {
 
   const submitData = () => {
     console.log(formInputs)
+    addBlog(formInputs, session.data?.user)
   }
 
   const onInputChange = (
