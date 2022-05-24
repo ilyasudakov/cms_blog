@@ -7,7 +7,7 @@ const Header: React.FC = () => {
   const { data: session } = useSession()
   const mode = useTheme()
   return (
-    <div className="sm:h20 sticky top-0 mb-6 h-16 bg-white dark:bg-black">
+    <div className="sticky top-0 mb-6 h-16 bg-white dark:bg-black sm:h-20">
       <div
         className="container flex items-center justify-between border-b border-gray-900 bg-white py-2 
       dark:border-gray-100 dark:bg-black sm:py-4"
