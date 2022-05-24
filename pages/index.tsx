@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import CategoriesWidget from '../components/CategoriesWidget'
-import FloatingButton from '../components/FloatingButton'
-import Header from '../components/Header'
+import CreateButton from '../components/CreateButton'
 import PostWidget from '../components/PostWidget'
 import { getCategories, getPosts } from '../services'
 
@@ -23,7 +22,6 @@ interface IProps {
 const Home: NextPage<IProps> = ({ posts, categories }) => {
   return (
     <div className="">
-      <FloatingButton text={'Написать блог'} />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 ">
         <section id="posts" className="col-span-10">
           <div className="mb-4 text-2xl font-bold dark:text-gray-100">
@@ -42,6 +40,7 @@ const Home: NextPage<IProps> = ({ posts, categories }) => {
           </div>
         </section>
         <div className="col-span-10 sm:col-span-2">
+          <CreateButton text={'Написать блог'} href={'/create'} />
           <CategoriesWidget categories={categories} />
         </div>
       </div>
