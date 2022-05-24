@@ -15,7 +15,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href="/40x40.png" />
       </Head>
       <div className="block h-full min-h-screen dark:bg-black">
-        <div className="container mx-auto h-full px-4 sm:px-10">
+        <div className="container mx-auto h-full px-4 pb-8 sm:px-10">
           <Header />
           <div className="min-h-full">
             <Component {...pageProps} />

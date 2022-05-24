@@ -7,8 +7,8 @@ const Header: React.FC = () => {
   const { data: session } = useSession()
   const mode = useTheme()
   return (
-    <div className="sticky top-0 mb-6 h-20 bg-white dark:bg-black">
-      <div className="container flex items-center justify-between border-b border-gray-900 py-4 dark:border-gray-100">
+    <div className="sm:h20 sticky top-0 mb-6 h-16 bg-white dark:bg-black">
+      <div className="container flex items-center justify-between border-b border-gray-900 py-2 dark:border-gray-100 sm:py-4">
         <div className="cursor-pointer">
           <Link href="/">
             <div className="flex items-center">
