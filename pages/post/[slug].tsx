@@ -56,7 +56,10 @@ const PostPage: React.FC<IProps> = ({ post }) => {
     switch (type) {
       case 'heading-three':
         return (
-          <h3 key={index} className="mb-4 text-xl font-semibold text-gray-100">
+          <h3
+            key={index}
+            className="mb-4 text-xl font-semibold dark:text-gray-100"
+          >
             {modifiedText.map((item: any, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -72,7 +75,10 @@ const PostPage: React.FC<IProps> = ({ post }) => {
         )
       case 'heading-four':
         return (
-          <h4 key={index} className="text-md mb-4 font-semibold text-gray-100">
+          <h4
+            key={index}
+            className="text-md mb-4 font-semibold dark:text-gray-100"
+          >
             {modifiedText.map((item: any, i: number) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -87,6 +93,17 @@ const PostPage: React.FC<IProps> = ({ post }) => {
             width={obj.width}
             src={obj.src}
           />
+        )
+      case 'code-block':
+        return (
+          <code
+            key={index}
+            className="text-md mb-4 border border-black p-2 font-semibold dark:border-white dark:text-gray-100"
+          >
+            {modifiedText.map((item: any, i: number) => (
+              <React.Fragment key={i}>{item}</React.Fragment>
+            ))}
+          </code>
         )
       default:
         return modifiedText

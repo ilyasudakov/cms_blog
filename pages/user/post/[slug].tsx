@@ -27,9 +27,15 @@ const UsersPosts: React.FC<IProps> = ({ posts }) => {
         <span className="dark:text-white">{`${author.name} - публикации`}</span>
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {posts.map((post) => (
-          <PostWidget post={post.node} />
-        ))}
+        {posts
+          .sort((a, b) => {
+            if (a.node.createdAt < b.node.createdAt) return 1
+            if (a.node.createdAt >= b.node.createdAt) return -1
+            return 0
+          })
+          .map((post) => (
+            <PostWidget post={post.node} />
+          ))}
       </div>
     </div>
   )
