@@ -123,6 +123,41 @@ export const getPostsByCategory = async (slug: any) => {
   return results.postsConnection.edges
 }
 
+export const getPostsByUser = async (slug: any) => {
+  const query = gql`
+    query MyQuery($slug: String!) {
+      postsConnection(where: { author: { email: $slug } }) {
+        edges {
+          node {
+            id
+            createdAt
+            excerpt
+            title
+            author {
+              name
+              userImage {
+                url
+              }
+              email
+            }
+            image {
+              url
+            }
+            slug
+          }
+        }
+      }
+    }
+  `
+
+  const results = await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    query,
+    { slug }
+  )
+  return results.postsConnection.edges
+}
+
 export const getCategoryBySlug = async (slug: any) => {
   const query = gql`
     query MyQuery($slug: String!) {

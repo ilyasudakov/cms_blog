@@ -1,8 +1,8 @@
-import moment from 'moment'
 import { GetStaticPaths } from 'next'
 import Link from 'next/link'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
+import UserPostDetails from '../../components/UserPostDetails'
 import { getPostDetails } from '../../services'
 
 interface IProps {
@@ -96,16 +96,10 @@ const PostPage: React.FC<IProps> = ({ post }) => {
   const { title, createdAt } = post
   return (
     <div className="grid pb-20">
-      <div className="mb-2 flex items-center text-sm">
-        <Link href={`/user/${post.author.email}`}>
-          <div className="flex cursor-pointer items-center hover:underline">
-            <img width="25" className="mr-2" src={post.author.userImage?.url} />
-            <span className="mr-2">{post.author.name}</span>
-          </div>
-        </Link>
-        <span>{moment(createdAt).fromNow()}</span>
+      <div className="mb-2">
+        <UserPostDetails createdAt={createdAt} author={post.author} />
       </div>
-      <div className="mb-8 text-2xl dark:text-gray-100">{title}</div>
+      <div className="mb-8 text-2xl font-bold dark:text-gray-100">{title}</div>
       {post.image?.url ? (
         <div className="mb-4">
           <img className="max-w-4/12" src={post.image?.url} />

@@ -1,6 +1,6 @@
-import moment from 'moment'
 import Link from 'next/link'
 import React from 'react'
+import UserPostDetails from './UserPostDetails'
 
 interface IProps {
   post: {
@@ -34,18 +34,8 @@ const PostWidget: React.FC<IProps> = ({ post }) => {
               </div>
             ) : null}
           </div>
-          <div className="mt-4 flex items-center text-sm">
-            <Link href={`/user/${post.author.email}`}>
-              <div className="flex items-center hover:underline">
-                <img
-                  width="25"
-                  className="mr-2"
-                  src={post.author.userImage?.url}
-                />
-                <span className="mr-2">{post.author.name}</span>
-              </div>
-            </Link>
-            <span>{moment(createdAt).fromNow()}</span>
+          <div className="mt-2">
+            <UserPostDetails createdAt={createdAt} author={post.author} />
           </div>
         </div>
       </Link>
