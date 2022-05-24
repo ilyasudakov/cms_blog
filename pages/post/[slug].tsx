@@ -2,7 +2,7 @@ import { GetStaticPaths } from 'next'
 import Link from 'next/link'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
-import UserPostDetails from '../../components/UserPostDetails'
+import { UserPostDetails } from '../../components'
 import { getPostDetails } from '../../services'
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
-import PostWidget from '../../components/PostWidget'
+import { PostWidget } from '../../components'
 import { getCategoryBySlug, getPostsByCategory } from '../../services'
 
 interface IProps {
@@ -30,7 +30,7 @@ const CategoryPage: React.FC<IProps> = ({ posts, category }) => {
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {posts.map((post) => (
-          <PostWidget post={post.node} />
+          <PostWidget key={post.node.id} post={post.node} />
         ))}
       </div>
     </div>

@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
 import moment from 'moment'
 import 'moment/locale/ru'
-import Header from '../components/Header'
+import { Layout } from '../components'
 import Head from 'next/head'
 
 moment.locale('ru')
@@ -16,10 +16,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <div className="block h-full min-h-screen dark:bg-black">
         <div className="container mx-auto h-full px-4 pb-8 sm:px-10">
-          <Header />
-          <div className="min-h-full">
-            <Component {...pageProps} />
-          </div>
+          <Layout>
+            <div className="min-h-full">
+              <Component {...pageProps} />
+            </div>
+          </Layout>
         </div>
       </div>
     </SessionProvider>

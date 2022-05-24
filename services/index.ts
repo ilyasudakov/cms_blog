@@ -1,9 +1,9 @@
 import { request, gql } from 'graphql-request'
 
-export const getPosts = async () => {
+export const getPosts = async (limit: number = 10) => {
   const query = gql`
-    query MyQuery {
-      postsConnection(orderBy: createdAt_DESC) {
+    query MyQuery($limit: Int!) {
+      postsConnection(orderBy: createdAt_DESC, first: $limit) {
         edges {
           node {
             id
@@ -27,7 +27,8 @@ export const getPosts = async () => {
 
   const results = await request(
     `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
-    query
+    query,
+    { limit }
   )
   return results.postsConnection.edges
 }

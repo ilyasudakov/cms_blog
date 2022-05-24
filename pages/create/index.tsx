@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
-import Button from '../../components/Button'
+import { Button } from '../../components'
 
 const CreateBlogPage: React.FC = () => {
   const session = useSession()

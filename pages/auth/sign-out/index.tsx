@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { getSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
-import Button from '../../../components/Button'
+import { Button } from '../../../components'
 
 const SignOut: NextPage = () => {
   return (
