@@ -16,6 +16,7 @@ interface IProps {
     slug: string
     content: {
       raw: { children: [] }
+      html: any
     }
   }
 }
@@ -134,13 +135,16 @@ const PostPage: React.FC<IProps> = ({ post }) => {
             height: number
             children: []
             type: string
+            text: string
           },
           index
         ) => {
-          const children = typeObj.children.map((item: any, itemindex) =>
+          const children = typeObj.children?.map((item: any, itemindex) =>
             getContentFragment(itemindex, item.text, item)
           )
-
+          if (typeObj.text) {
+            getContentFragment(index, typeObj.text, typeObj, 'paragraph')
+          }
           return getContentFragment(index, children, typeObj, typeObj.type)
         }
       )}

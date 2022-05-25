@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import Router from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { Button } from '../../components'
 import { addBlog } from '../../services'
 
@@ -8,7 +9,7 @@ const CreateBlogPage: React.FC = () => {
   const [formInputs, setFormInputs] = useState({
     title: '',
     excerpt: '',
-    img: '',
+    image: '',
     createdAt: new Date(),
     slug: '',
     content: '',
@@ -16,7 +17,7 @@ const CreateBlogPage: React.FC = () => {
   })
 
   const submitData = () => {
-    console.log(formInputs)
+    console.log(formInputs, session.data?.user)
     addBlog(formInputs, session.data?.user)
   }
 
@@ -32,6 +33,12 @@ const CreateBlogPage: React.FC = () => {
       [name]: value,
     })
   }
+
+  useEffect(() => {
+    if (session.status === 'unauthenticated') {
+      Router.push('/auth/sign-in')
+    }
+  }, [session.status])
 
   return (
     <div className="">
@@ -85,7 +92,7 @@ const CreateBlogPage: React.FC = () => {
         </div>
         <div className="mb-4 grid">
           <label className="text-xl dark:text-white" htmlFor="slug">
-            Название страницы для браузеры (URL), например:
+            Название страницы для браузера (URL), например:
             'site-example-nextjs'
           </label>
           <input
@@ -100,14 +107,14 @@ const CreateBlogPage: React.FC = () => {
           />
         </div>
         <div className="mb-4 grid">
-          <label className="text-xl dark:text-white" htmlFor="img">
+          <label className="text-xl dark:text-white" htmlFor="image">
             Ссылка на картинку - URL
           </label>
           <input
             className="border border-black p-2 dark:border-white dark:bg-black dark:text-white"
-            id="img"
-            name="img"
-            value={formInputs.img}
+            id="image"
+            name="image"
+            value={formInputs.image}
             onChange={(e) => onInputChange(e)}
             type="text"
             placeholder="Введите url ссылку на картинку..."

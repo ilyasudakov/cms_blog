@@ -11,7 +11,7 @@ const CreateButton: React.FC<IProps> = ({ text, href }) => {
     <Link href={href}>
       <div
         className="lg:text-md cursor-pointer border 
-        border-black bg-black py-2 px-4 text-center text-sm text-white text-black
+        border-black bg-black py-2 px-4 text-center text-sm text-white
         dark:bg-white dark:text-black"
       >
         {text}

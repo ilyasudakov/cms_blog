@@ -6,15 +6,20 @@
     "start": "next start"
   },
   "dependencies": {
+    "@graphcms/html-to-slate-ast": "^0.5.1",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
     "html-react-parser": "^1.4.12",
+    "jsdom": "^19.0.0",
     "moment": "^2.29.3",
+    "net": "^1.0.2",
     "next": "latest",
     "next-auth": "^4.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "sass": "^1.52.1"
+    "sass": "^1.52.1",
+    "slate": "^0.78.0",
+    "slate-hyperscript": "^0.58.3"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.0",

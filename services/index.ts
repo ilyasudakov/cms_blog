@@ -1,4 +1,5 @@
 import { request, gql } from 'graphql-request'
+import htmlToAST from './htmlToAST'
 
 export const getPosts = async (limit: number = 10) => {
   const query = gql`
@@ -60,6 +61,7 @@ export const getPostDetails = async (slug: string) => {
             title
             content {
               raw
+              html
             }
             author {
               name
@@ -210,12 +212,14 @@ export const addUser = async (user: any) => {
 
 export const addBlog = async (blog: any, user: any) => {
   const { email } = user
-  const { title, excerpt, content, slug } = blog
+  const { title, excerpt, slug, image } = blog
+  const ast = htmlToAST(blog.content)
   const query = gql`
     mutation (
       $title: String!
       $excerpt: String!
       $slug: String!
+      $image: String!
       $content: RichTextAST!
     ) {
       createPost(
@@ -223,13 +227,18 @@ export const addBlog = async (blog: any, user: any) => {
           title: $title
           excerpt: $excerpt
           slug: $slug
+          image: $image
           content: $content
         }
       ) {
         title
         excerpt
         slug
-        content
+        image
+        content {
+          html
+          raw
+        }
       }
       publishPost(where: { slug: $slug }) {
         id
@@ -240,7 +249,7 @@ export const addBlog = async (blog: any, user: any) => {
   const results = await request(
     `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
     query,
-    { email, title, excerpt, content, slug }
+    { email, title, excerpt, content: { children: ast }, slug, image }
   )
   return results
 }
