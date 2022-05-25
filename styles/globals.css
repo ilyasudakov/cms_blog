@@ -10,4 +10,23 @@
   * {
     color: #ccc;
   }
+
+  .react-select__control {
+    border-color: white;
+  }
+
+  .react-select__value-container {
+    background-color: black;
+  }
+  .react-select__menu {
+    border: 1px solid white;
+    border-radius: 0px;
+  }
+  .react-select__menu-list {
+    background-color: black;
+  }
+
+  .react-select__option--is-focused {
+    color: black !important;
+  }
 }

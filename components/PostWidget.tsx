@@ -22,19 +22,21 @@ const PostWidget: React.FC<IProps> = ({ post }) => {
       className="cursor-pointer border border-gray-900 p-4 dark:border-gray-300"
     >
       <Link href={`/post/${slug}`}>
-        <div>
-          <div className="mb-2 text-lg font-bold dark:text-gray-100">
-            {title}
-          </div>
-          <div className="flex flex-col items-start sm:flex-row">
-            <div className="order-2 mr-4 sm:order-1">
-              <div className="line-clamp-3">{excerpt}</div>
+        <div className="flex h-full flex-col justify-between">
+          <div>
+            <div className="mb-2 text-lg font-bold dark:text-gray-100">
+              {title}
             </div>
-            {post.image ? (
-              <div className="order-1 min-w-full sm:order-2 sm:min-w-min">
-                <img src={post.image} />
+            <div className="flex flex-col items-start justify-between sm:flex-row">
+              <div className="order-2 mr-4 sm:order-1">
+                <div className="line-clamp-3">{excerpt}</div>
               </div>
-            ) : null}
+              {post.image ? (
+                <div className="order-1 min-w-full sm:order-2 sm:min-w-min">
+                  <img src={post.image} />
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className="mt-2">
             <UserPostDetails createdAt={createdAt} author={post.author} />

@@ -24,7 +24,7 @@ const UsersPosts: React.FC<IProps> = ({ posts }) => {
     <div>
       <div className="mb-4 flex items-center text-2xl font-bold dark:text-white">
         <img width="35" className="mr-2 rounded-full" src={author?.img} />
-        <span className="dark:text-white">{`${author.name} - публикации`}</span>
+        <span className="dark:text-white">{`${author.name} - статьи`}</span>
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {posts.map((post) => (

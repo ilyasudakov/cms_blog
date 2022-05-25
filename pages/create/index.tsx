@@ -2,11 +2,37 @@ import { useSession } from 'next-auth/react'
 import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../../components'
-import { addBlog } from '../../services'
+import { addBlog, getCategories } from '../../services'
+import Select, { MultiValue } from 'react-select'
 
-const CreateBlogPage: React.FC = () => {
+interface IProps {
+  categories: { name: string; slug: string }[]
+}
+
+interface IFormInputs {
+  title: string
+  excerpt: string
+  image: string
+  createdAt: Date
+  slug: string
+  content: string
+  author:
+    | {
+        name?: string | null | undefined
+        email?: string | null | undefined
+        image?: string | null | undefined
+      }
+    | undefined
+  categories: MultiValue<{ label: string; value: string } | null> | null
+}
+
+const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
   const session = useSession()
-  const [formInputs, setFormInputs] = useState({
+  const categoriesSelect = categories.map((category) => ({
+    label: category.name,
+    value: category.slug,
+  }))
+  const [formInputs, setFormInputs] = useState<IFormInputs>({
     title: '',
     excerpt: '',
     image: '',
@@ -14,11 +40,23 @@ const CreateBlogPage: React.FC = () => {
     slug: '',
     content: '',
     author: session.data?.user,
+    categories: null,
   })
 
   const submitData = () => {
-    console.log(formInputs, session.data?.user)
+    if (
+      formInputs.title === '' ||
+      formInputs.excerpt === '' ||
+      formInputs.slug === '' ||
+      formInputs.content === ''
+    ) {
+      return alert('Заполните все необходимые поля')
+    }
     addBlog(formInputs, session.data?.user)
+      .then((res) => {
+        Router.push(`/post/${res.createPost.slug}`)
+      })
+      .catch((error) => alert(error))
   }
 
   const onInputChange = (
@@ -120,6 +158,24 @@ const CreateBlogPage: React.FC = () => {
             placeholder="Введите url ссылку на картинку..."
           />
         </div>
+        <div className="mb-4 grid">
+          <label className="text-xl dark:text-white">Категория статьи</label>
+          <Select
+            options={categoriesSelect}
+            defaultValue={formInputs.categories}
+            onChange={(newValue) => {
+              setFormInputs({
+                ...formInputs,
+                categories: newValue,
+              })
+            }}
+            isMulti
+            isClearable
+            className="react-select-container"
+            classNamePrefix="react-select"
+            placeholder="Выберите категории"
+          />
+        </div>
         <Button onClick={() => submitData()} text={'Создать статью'} />
       </form>
     </div>
@@ -127,3 +183,10 @@ const CreateBlogPage: React.FC = () => {
 }
 
 export default CreateBlogPage
+
+export async function getServerSideProps() {
+  const categories = (await getCategories()) || []
+  return {
+    props: { categories },
+  }
+}

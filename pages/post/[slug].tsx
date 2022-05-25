@@ -143,7 +143,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
             getContentFragment(itemindex, item.text, item)
           )
           if (typeObj.text) {
-            getContentFragment(index, typeObj.text, typeObj, 'paragraph')
+            return <p className="mb-2">{typeObj.text}</p>
           }
           return getContentFragment(index, children, typeObj, typeObj.type)
         }

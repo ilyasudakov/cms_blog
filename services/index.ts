@@ -214,13 +214,25 @@ export const addBlog = async (blog: any, user: any) => {
   const { email } = user
   const { title, excerpt, slug, image } = blog
   const ast = htmlToAST(blog.content)
+  const categories = blog.categories.map((category: any) => ({
+    slug: category.value,
+  }))
+  // const categories = blog.categories.map((category: any) => ({
+  //   where: { slug: category.value },
+  // }))
+  // const categories = blog.categories.map(
+  //   (category: any) => `where: { slug: "${category.value}" }`
+  // )
+
   const query = gql`
     mutation (
       $title: String!
       $excerpt: String!
       $slug: String!
-      $image: String!
+      $image: String
       $content: RichTextAST!
+      $email: String!
+      $categories: [CategoryWhereUniqueInput!]
     ) {
       createPost(
         data: {
@@ -229,27 +241,31 @@ export const addBlog = async (blog: any, user: any) => {
           slug: $slug
           image: $image
           content: $content
+          author: { connect: { email: $email } }
+          categories: { connect: $categories }
         }
       ) {
-        title
-        excerpt
+        id
         slug
-        image
-        content {
-          html
-          raw
-        }
       }
       publishPost(where: { slug: $slug }) {
         id
       }
     }
   `
-
+  console.log(query, categories)
   const results = await request(
     `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
     query,
-    { email, title, excerpt, content: { children: ast }, slug, image }
+    {
+      email,
+      title,
+      excerpt,
+      content: { children: ast },
+      slug,
+      image,
+      categories,
+    }
   )
   return results
 }
