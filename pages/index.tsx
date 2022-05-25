@@ -17,7 +17,6 @@ interface IProps {
       author: { img: string; name: string; email: string }
       createdAt: Date
       id: string
-      slug: string
     }
   }[]
   categories: { name: string; slug: string }[]

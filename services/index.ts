@@ -11,7 +11,6 @@ export const getPosts = async (limit: number = 10) => {
             createdAt
             excerpt
             title
-            slug
             author {
               img
               name
@@ -51,8 +50,8 @@ export const getCategories = async () => {
 
 export const getPostDetails = async (slug: string) => {
   const query = gql`
-    query MyQuery($slug: String!) {
-      postsConnection(where: { slug: $slug }) {
+    query MyQuery($slug: ID!) {
+      postsConnection(where: { id: $slug }) {
         edges {
           node {
             id
@@ -102,7 +101,6 @@ export const getPostsByCategory = async (slug: string) => {
               email
             }
             image
-            slug
           }
         }
       }
@@ -136,7 +134,6 @@ export const getPostsByUser = async (slug: string) => {
               email
             }
             image
-            slug
           }
         }
       }
@@ -212,23 +209,15 @@ export const addUser = async (user: any) => {
 
 export const addBlog = async (blog: any, user: any) => {
   const { email } = user
-  const { title, excerpt, slug, image } = blog
+  const { title, excerpt, image } = blog
   const ast = htmlToAST(blog.content)
   const categories = blog.categories.map((category: any) => ({
     slug: category.value,
   }))
-  // const categories = blog.categories.map((category: any) => ({
-  //   where: { slug: category.value },
-  // }))
-  // const categories = blog.categories.map(
-  //   (category: any) => `where: { slug: "${category.value}" }`
-  // )
-
   const query = gql`
     mutation (
       $title: String!
       $excerpt: String!
-      $slug: String!
       $image: String
       $content: RichTextAST!
       $email: String!
@@ -238,7 +227,6 @@ export const addBlog = async (blog: any, user: any) => {
         data: {
           title: $title
           excerpt: $excerpt
-          slug: $slug
           image: $image
           content: $content
           author: { connect: { email: $email } }
@@ -246,14 +234,9 @@ export const addBlog = async (blog: any, user: any) => {
         }
       ) {
         id
-        slug
-      }
-      publishPost(where: { slug: $slug }) {
-        id
       }
     }
   `
-  console.log(query, categories)
   const results = await request(
     `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
     query,
@@ -262,10 +245,18 @@ export const addBlog = async (blog: any, user: any) => {
       title,
       excerpt,
       content: { children: ast },
-      slug,
       image,
       categories,
     }
+  )
+  await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    `mutation ($id: ID!) {
+      publishPost(where: { id: $id }) {
+        id
+      }
+    }`,
+    { id: results.createPost.id }
   )
   return results
 }

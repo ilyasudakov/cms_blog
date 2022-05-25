@@ -9,7 +9,7 @@ interface IProps {
   post: {
     title: string
     excerpt: string
-    image: { url: string }
+    image: string
     author: { img: string; name: string; email: string }
     createdAt: Date
     id: string
@@ -118,9 +118,9 @@ const PostPage: React.FC<IProps> = ({ post }) => {
         <UserPostDetails createdAt={createdAt} author={post.author} />
       </div>
       <div className="mb-8 text-2xl font-bold dark:text-gray-100">{title}</div>
-      {post.image?.url ? (
+      {post?.image ? (
         <div className="mb-4">
-          <img className="md:max-w-md lg:max-w-xl" src={post.image?.url} />
+          <img className="md:max-w-md lg:max-w-xl" src={post?.image} />
         </div>
       ) : null}
       {post.content.raw.children.map(

@@ -14,7 +14,6 @@ interface IFormInputs {
   excerpt: string
   image: string
   createdAt: Date
-  slug: string
   content: string
   author:
     | {
@@ -37,7 +36,6 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
     excerpt: '',
     image: '',
     createdAt: new Date(),
-    slug: '',
     content: '',
     author: session.data?.user,
     categories: null,
@@ -47,14 +45,13 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
     if (
       formInputs.title === '' ||
       formInputs.excerpt === '' ||
-      formInputs.slug === '' ||
       formInputs.content === ''
     ) {
       return alert('Заполните все необходимые поля')
     }
     addBlog(formInputs, session.data?.user)
       .then((res) => {
-        Router.push(`/post/${res.createPost.slug}`)
+        Router.push(`/post/${res.createPost.id}`)
       })
       .catch((error) => alert(error))
   }
@@ -126,22 +123,6 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
             required
             name="content"
             placeholder="Введите текст..."
-          />
-        </div>
-        <div className="mb-4 grid">
-          <label className="text-xl dark:text-white" htmlFor="slug">
-            Название страницы для браузера (URL), например:
-            'site-example-nextjs'
-          </label>
-          <input
-            className="border border-black p-2 dark:border-white dark:bg-black dark:text-white"
-            id="slug"
-            name="slug"
-            type="text"
-            value={formInputs.slug}
-            onChange={(e) => onInputChange(e)}
-            required
-            placeholder="Введите название для url..."
           />
         </div>
         <div className="mb-4 grid">

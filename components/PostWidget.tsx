@@ -4,24 +4,24 @@ import UserPostDetails from './UserPostDetails'
 
 interface IProps {
   post: {
+    id: string
     title: string
     excerpt: string
     image: string
     author: { img: string; name: string; email: string }
     createdAt: Date
-    slug: string
   }
 }
 
 const PostWidget: React.FC<IProps> = ({ post }) => {
-  const { title, excerpt, slug, createdAt } = post
+  const { title, excerpt, id, createdAt } = post
 
   return (
     <div
       key={title}
       className="cursor-pointer border border-gray-900 p-4 dark:border-gray-300"
     >
-      <Link href={`/post/${slug}`}>
+      <Link href={`/post/${id}`}>
         <div className="flex h-full flex-col justify-between">
           <div>
             <div className="mb-2 text-lg font-bold dark:text-gray-100">
