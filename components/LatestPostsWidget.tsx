@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getPosts } from '../services'
 
-interface IProps {
+interface IState {
   posts: {
     node: {
       title: string
@@ -14,7 +15,15 @@ interface IProps {
   }[]
 }
 
-const LatestPostsWidget: React.FC<IProps> = ({ posts }) => {
+const LatestPostsWidget = () => {
+  const [posts, setPosts] = useState<IState['posts']>([])
+
+  useEffect(() => {
+    getPosts(2).then((res) => {
+      setPosts(res)
+    })
+  }, [])
+
   return (
     <div className="t-0 mb-2 block grid gap-2 border border-gray-900 p-4 dark:border-gray-300 lg:sticky">
       <div className="text-lg font-bold dark:text-gray-100">

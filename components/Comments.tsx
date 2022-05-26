@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createComment } from '../services'
 import Button from './Button'
 import UserPostDetails from './UserPostDetails'
@@ -55,6 +55,10 @@ const Comments: React.FC<IProps> = ({ comments, postId }) => {
       })
       .catch((error) => alert(error))
   }
+
+  useEffect(() => {
+    setLocalComments([...comments])
+  }, [comments])
 
   return (
     <div>

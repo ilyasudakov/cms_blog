@@ -119,7 +119,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
 
   const { title, createdAt, comments } = post
   return (
-    <div className="grid pb-20">
+    <div className="grid">
       <div className="mb-2">
         <UserPostDetails createdAt={createdAt} author={post.author} />
       </div>
