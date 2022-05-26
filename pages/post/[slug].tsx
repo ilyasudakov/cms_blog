@@ -2,7 +2,7 @@ import { GetStaticPaths } from 'next'
 import Link from 'next/link'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
-import { UserPostDetails } from '../../components'
+import { Comments, UserPostDetails } from '../../components'
 import { getPostDetails } from '../../services'
 
 interface IProps {
@@ -18,6 +18,12 @@ interface IProps {
       raw: { children: [] }
       html: any
     }
+    comments: {
+      id: string
+      content: string
+      createdAt: Date
+      author: { name: string; img: string; email: string }
+    }[]
   }
 }
 
@@ -111,7 +117,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
     }
   }
 
-  const { title, createdAt } = post
+  const { title, createdAt, comments } = post
   return (
     <div className="grid pb-20">
       <div className="mb-2">
@@ -151,6 +157,7 @@ const PostPage: React.FC<IProps> = ({ post }) => {
       <Link href="/">
         <span className="cursor-pointer py-4 underline">На главную</span>
       </Link>
+      <Comments comments={comments} postId={post.id} />
     </div>
   )
 }

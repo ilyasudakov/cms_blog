@@ -68,6 +68,16 @@ export const getPostDetails = async (slug: string) => {
               email
             }
             image
+            comments {
+              content
+              id
+              author {
+                name
+                img
+                email
+              }
+              createdAt
+            }
           }
         }
       }
@@ -257,6 +267,43 @@ export const addBlog = async (blog: any, user: any) => {
       }
     }`,
     { id: results.createPost.id }
+  )
+  return results
+}
+
+export const createComment = async (comment: any) => {
+  const { user, content, post_id } = comment
+  const query = gql`
+    mutation ($content: String!, $email: String!) {
+      createComment(
+        data: { content: $content, author: { connect: { email: $email } } }
+      ) {
+        id
+      }
+    }
+  `
+  const results = await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    query,
+    { email: user.email, content }
+  )
+  await request(
+    `${process.env.NEXT_PUBLIC_GRAPHCMS_API}`,
+    `mutation ($id: ID!, $post_id: ID!) {
+      publishComment(where: { id: $id }) {
+        id
+      }
+      updatePost (
+        data: {comments: {connect: {where: {id: $id}}}}
+        where: {id: $post_id}
+      ) {
+        title
+      }
+      publishPost(where: { id: $post_id }) {
+        id
+      }
+    }`,
+    { id: results.createComment.id, post_id }
   )
   return results
 }
