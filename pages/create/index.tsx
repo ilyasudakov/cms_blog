@@ -40,15 +40,22 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
     author: session.data?.user,
     categories: null,
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const submitData = () => {
-    if (
-      formInputs.title === '' ||
-      formInputs.excerpt === '' ||
-      formInputs.content === ''
-    ) {
-      return alert('Заполните все необходимые поля')
+    if (formInputs.title === '') {
+      return alert('Вы должны заполнить поле "Заголовок"')
     }
+    if (formInputs.excerpt === '') {
+      return alert('Вы должны заполнить поле "Краткое описание"')
+    }
+    if (formInputs.content === '') {
+      return alert('Вы должны заполнить поле "Основной Текст"')
+    }
+    if (formInputs.categories === null) {
+      return alert('Вы должны заполнить поле "Категория статьи"')
+    }
+    setIsLoading(true)
     addBlog(formInputs, session.data?.user)
       .then((res) => {
         Router.push(`/post/${res.createPost.id}`)
@@ -75,6 +82,14 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
     }
   }, [session.status])
 
+  if (isLoading) {
+    return (
+      <div className="mb-4 text-lg dark:text-gray-100">
+        Ваша статья успешно создана, сейчас вы будете перенаправлены на страницу
+        с ней
+      </div>
+    )
+  }
   return (
     <div className="">
       <div className="mb-4 text-2xl font-bold dark:text-gray-100">
@@ -83,7 +98,7 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
       <form className="grid lg:max-w-screen-xl">
         <div className="mb-4 grid">
           <label className="text-xl dark:text-white" htmlFor="title">
-            Заголовок
+            Заголовок*
           </label>
           <input
             className="border border-black p-2 dark:border-white dark:bg-black dark:text-white"
@@ -98,7 +113,7 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
         </div>
         <div className="mb-4 grid">
           <label className="text-xl dark:text-white" htmlFor="excerpt">
-            Краткое описание
+            Краткое описание*
           </label>
           <input
             className="border border-black p-2 dark:border-white dark:bg-black dark:text-white"
@@ -113,7 +128,7 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
         </div>
         <div className="mb-4 grid">
           <label className="text-xl dark:text-white" htmlFor="content">
-            Основной текст
+            Основной текст*
           </label>
           <textarea
             className="border border-black p-2 dark:border-white dark:bg-black dark:text-white"
@@ -140,7 +155,7 @@ const CreateBlogPage: React.FC<IProps> = ({ categories }) => {
           />
         </div>
         <div className="mb-4 grid">
-          <label className="text-xl dark:text-white">Категория статьи</label>
+          <label className="text-xl dark:text-white">Категория статьи*</label>
           <Select
             options={categoriesSelect}
             defaultValue={formInputs.categories}
