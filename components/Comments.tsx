@@ -41,15 +41,19 @@ const Comments: React.FC<IProps> = ({ comments, postId }) => {
       createdAt: new Date(),
       post_id: postId,
     })
-      .then((res) => {
-        console.log(res)
+      .then(() => {
         setIsLoading(false)
+        setComment('')
         setLocalComments([
           ...localComments,
           {
             content: comment,
             createdAt: new Date(),
-            author: session.data?.user,
+            author: {
+              name: session.data?.user?.name,
+              email: session.data?.user?.email,
+              img: session.data?.user?.image,
+            },
           },
         ])
       })
